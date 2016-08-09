@@ -1,10 +1,11 @@
 'use strict';
 
-var file = new File("untitled.txt");
+var file = new File("untitled.txt", "plain");
 
 // class File
-function File(name, text) {
-  this.name = name || "untitled.txt";
+function File(name, plain, text) {
+  this.name = name;
+  this.mode = plain;
   this.text = text || "";
 }
 File.prototype.download = function (args) {
@@ -20,6 +21,141 @@ File.prototype.download = function (args) {
 File.prototype.isValidName = function () {
   return this.text.match(/[^\/\\¥?*:|<>]+/);
 };
+File.untitledFileTemplates = {
+  plain: "untitled.txt",//
+  adap: "untitled.abp",//
+  abc: "untitled",
+  actionscript: "untitled.as",//
+  ada: "untitled",
+  apache_conf: "untitled",
+  applescript: "untitled.applescript",//
+  asciidoc: "untitled",
+  assembly_x86: "untitled.asm",//
+  autohotkey: "untitled",
+  batchfile: "untitled.bat",
+  c9search: "untitled",
+  c_cpp: "untitled.cpp",//
+  cirru: "untitled",
+  clojure: "untitled.clj",//
+  cobol: "untitled.cbl",//
+  coffee: "untitled.coffee",//
+  coldfusion: "untitled",
+  csharp: "untitled.cs",//
+  css: "untitled.css",//
+  curly: "untitled",
+  d: "untitled.d",//
+  dart: "untitled.dart",//
+  diff: "untitled",
+  django: "untitled",
+  dockerfile: "untitled",
+  dot: "untitled.dot",//
+  drools: "untitled",
+  eiffel: "untitled",
+  ejs: "untitled",
+  elixir: "untitled.exs",//
+  elm: "untitled",
+  erlang: "untitled.erl",//
+  forth: "untitled.forth",//
+  fortran: "untitled",
+  ftl: "untitled",
+  gcode: "untitled",
+  gherkin: "untitled",
+  gitignore: ".gitignore",//
+  glsl: "untitled",
+  gobstones: "untitled",
+  golang: "untitled.go",//
+  groovy: "untitled",
+  haml: "untitled",
+  handlebars: "untitled",
+  haskell: "untitled.hs",//
+  haskell_cabal: "untitled.hs",//
+  haxe: "untitled",
+  html: "untitled.html",//
+  html_elixir: "untitled.html.eex",//
+  html_ruby: "untitled.html.erb",//
+  ini: "untitled",
+  io: "untitled",
+  jack: "untitled",
+  jade: "untitled.jade",//
+  java: "untitled.java",//
+  javascript: "untitled.js",//
+  json: "untitled.json",//
+  jsp: "untitled.jsp",//
+  julia: "untitled",
+  kotlin: "untitled.kts",//
+  latex: "untitled.tex",//
+  less: "untitled.less",//
+  liquid: "untitled",
+  list: "untitled",
+  livescript: "untitled",
+  logiql: "untitled",
+  lsl: "untitled",
+  lua: "untitled",
+  luapage: "untitled",
+  lucene: "untitled",
+  makefile: "Makefile",//
+  markdown: "untitled.md",//
+  mask: "untitled",
+  matlab: "untitled.mat",//
+  maze: "untitled",
+  mel: "untitled",
+  mushcode: "untitled",
+  mysql: "untitled.sql",//
+  nix: "untitled",
+  nsis: "untitled",
+  objectivec: "untitled.m",//
+  ocaml: "untitled.ml",//
+  pascal: "untitled.pas",//
+  perl: "untitled.pl",//
+  pgsql: "untitled.sql",//
+  php: "untitled.php",//
+  powershell: "untitled.ps1",//
+  praat: "untitled",
+  prolog: "untitled.pl",//
+  properties: "untitled",
+  protobuf: "untitled",
+  python: "untitled.py",//
+  r: "untitled.r",//
+  razor: "untitled",
+  rdoc: "untitled.rb",//
+  rhtml: "untitled",
+  rst: "untitled",
+  ruby: "untitled.rb",//
+  rust: "untitled.rs",//
+  sass: "untitled.sass",//
+  scad: "untitled",
+  scala: "untitled.scala",//
+  scheme: "untitled.scm",//
+  scss: "untitled.scss",//
+  sh: "untitled.sh",//
+  sjs: "untitled",
+  smarty: "untitled.tpl",//
+  snippets: "untitled",
+  soy_template: "untitled",
+  space: "untitled",
+  sql: "untitled.sql",//
+  sqlserver: "untitled.sql",//
+  stylus: "untitled.styl",//
+  svg: "untitled.svg",//
+  swift: "untitled.swift",//
+  tcl: "untitled",
+  tex: "untitled.tex",//
+  text: "untitled",
+  textile: "untitled",
+  toml: "untitled",
+  tsx: "untitled",
+  twing: "untitled",
+  typescript: "untitled.ts",//
+  vala: "untitled",
+  vbscript: "untitled.vbs",//
+  velocity: "untitled",
+  verilog: "untitled.v",//
+  chdl: "untitled",
+  wollok: "untitled",
+  xml: "untitled.xml",//
+  xquery: "untitled.xquery",//
+  yaml: "untitled.yml",//
+}
 
 
 // --- main ---
@@ -68,6 +204,7 @@ $('#js_input_file').change(function () {
   var reader = new FileReader();
   reader.onload = function(event) {
     editor.setValue(event.target.result);
+    editor.navigateDown();
   };
   reader.onerror = function(event) {
     alert("I AM ERROR: " + event.target.error.code);
@@ -87,7 +224,10 @@ $('#js_editor_settings').click(function () {
 
 // editor syntax mode
 $('#js_select_mode').change(function() {
+  // change syntax mode
   var mode = $(this).val();
   editor.getSession().setMode("ace/mode/" + mode);
-  // file.name = "untitled." + ext
+
+  // update file name
+  file.name = File.untitledFileTemplates[mode];
 });
