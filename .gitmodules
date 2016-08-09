@@ -1,0 +1,6 @@
+[submodule "ace"]
+  path = ace
+  url = https://github.com/ajaxorg/ace.git
+[submodule "maximize-select2-height"]
+  path = maximize-select2-height
+  url = https://github.com/panorama-ed/maximize-select2-height
