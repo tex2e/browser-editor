@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>BrowserEditor</title>
+  <link rel="stylesheet" href="css/common.css" charset="utf-8">
+  <!-- bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+    integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.1.0.min.js"
+    integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <!-- select2 -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+  <!-- maximize-select2-height -->
+  <script src="maximize-select2-height/maximize-select2-height.min.js"></script>
+</head>
+<body>
+  <nav class="navbar navbar-default" style="margin-bottom: 0">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">BrowserEditor</a>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse">
+        <!-- Navbar left -->
+        <ul class="nav navbar-nav">
+          <!-- File save and open -->
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+              <span class="glyphicon glyphicon-folder-open" aria-hidden="true">
+              <span class="caret"></span>
+            </a>
+            <ul id="js_file_io" class="dropdown-menu">
+              <li><a href="#" data-action="save" data-toggle="modal" data-target="#modal_save">save</a></li>
+              <li><a href="#" data-action="open">open</a></li>
+            </ul>
+            <!-- for loading file -->
+            <input id="js_input_file" type="file" style="display: none;" />
+          </li>
+
+          <!-- Change font size -->
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+              <span class="glyphicon glyphicon-text-size" aria-hidden="true">
+              <span class="caret"></span>
+            </a>
+            <ul id="js_text_size" class="dropdown-menu">
+              <li><a href="#" data-size="10">10px</a></li>
+              <li><a href="#" data-size="11">11px</a></li>
+              <li><a href="#" data-size="12">12px</a></li>
+              <li><a href="#" data-size="14" class="active">14px</a></li>
+              <li><a href="#" data-size="16">16px</a></li>
+              <li><a href="#" data-size="18">18px</a></li>
+              <li><a href="#" data-size="20">20px</a></li>
+            </ul>
+          </li>
+
+          <!-- Open search box -->
+          <li><a href="#" id="js_search_text"><span class="glyphicon glyphicon-search" aria-hidden="true"></a></li>
+
+          <!-- Open editor settings -->
+          <li><a href="#" id="js_editor_settings"><span class="glyphicon glyphicon-cog" aria-hidden="true"></a></li>
+        </ul>
+
+        <!-- Navbar right -->
+        <ul class="nav navbar-nav navbar-right">
+          <form class="navbar-form navbar-left">
+            <div class="form-group">
+              <span class="navbar-text" style="margin: 10px">Mode :</span>
+              <select style="width: 200px" id="js_select_mode">
+                <option value="plain">plain</option>
+                <option value="adap">abap</option>
+                <option value="abc">abc</option>
+                <option value="actionscript">actionscript</option>
+                <option value="ada">ada</option>
+                <option value="apache_conf">apache_conf</option>
+                <option value="applescript">applescript</option>
+                <option value="asciidoc">asciidoc</option>
+                <option value="assembly_x86">assembly_x86</option>
+                <option value="autohotkey">autohotkey</option>
+                <option value="batchfile">batchfile</option>
+                <option value="c9search">c9search</option>
+                <option value="c_cpp">c_cpp</option>
+                <option value="cirru">cirru</option>
+                <option value="clojure">clojure</option>
+                <option value="cobol">cobol</option>
+                <option value="coffee">coffee</option>
+                <option value="coldfusion">coldfusion</option>
+                <option value="csharp">csharp</option>
+                <option value="css">css</option>
+                <option value="curly">curly</option>
+                <option value="d">d</option>
+                <option value="dart">dart</option>
+                <option value="diff">diff</option>
+                <option value="django">django</option>
+                <option value="dockerfile">dockerfile</option>
+                <option value="dot">dot</option>
+                <option value="drools">drools</option>
+                <option value="eiffel">eiffel</option>
+                <option value="ejs">ejs</option>
+                <option value="elixir">elixir</option>
+                <option value="elm">elm</option>
+                <option value="erlang">erlang</option>
+                <option value="forth">forth</option>
+                <option value="fortran">fortran</option>
+                <option value="ftl">ftl</option>
+                <option value="gcode">gcode</option>
+                <option value="gherkin">gherkin</option>
+                <option value="gitignore">gitignore</option>
+                <option value="glsl">glsl</option>
+                <option value="gobstones">gobstones</option>
+                <option value="golang">golang</option>
+                <option value="groovy">groovy</option>
+                <option value="haml">haml</option>
+                <option value="handlebars">handlebars</option>
+                <option value="haskell">haskell</option>
+                <option value="haskell_cabal">haskell_cabal</option>
+                <option value="haxe">haxe</option>
+                <option value="html">html</option>
+                <option value="html_elixir">html_elixir</option>
+                <option value="html_ruby">html_ruby</option>
+                <option value="ini">ini</option>
+                <option value="io">io</option>
+                <option value="jack">jack</option>
+                <option value="jade">jade</option>
+                <option value="java">java</option>
+                <option value="javascript">javascript</option>
+                <option value="json">json</option>
+                <option value="jsp">jsp</option>
+                <option value="julia">julia</option>
+                <option value="kotlin">kotlin</option>
+                <option value="latex">latex</option>
+                <option value="less">less</option>
+                <option value="liquid">liquid</option>
+                <option value="list">list</option>
+                <option value="livescript">livescript</option>
+                <option value="logiql">logiql</option>
+                <option value="lsl">lsl</option>
+                <option value="lua">lua</option>
+                <option value="luapage">luapage</option>
+                <option value="lucene">lucene</option>
+                <option value="makefile">makefile</option>
+                <option value="markdown">markdown</option>
+                <option value="mask">mask</option>
+                <option value="matlab">matlab</option>
+                <option value="maze">maze</option>
+                <option value="mel">mel</option>
+                <option value="mushcode">mushcode</option>
+                <option value="mysql">mysql</option>
+                <option value="nix">nix</option>
+                <option value="nsis">nsis</option>
+                <option value="objectivec">objective_c</option>
+                <option value="ocaml">ocaml</option>
+                <option value="pascal">pascal</option>
+                <option value="perl">perl</option>
+                <option value="pgsql">pgsql</option>
+                <option value="php">php</option>
+                <option value="powershell">powershell</option>
+                <option value="praat">praat</option>
+                <option value="prolog">prolog</option>
+                <option value="properties">properties</option>
+                <option value="protobuf">protobuf</option>
+                <option value="python">python</option>
+                <option value="r">r</option>
+                <option value="razor">razor</option>
+                <option value="rdoc">rdoc</option>
+                <option value="rhtml">rhtml</option>
+                <option value="rst">rst</option>
+                <option value="ruby">ruby</option>
+                <option value="rust">rust</option>
+                <option value="sass">sass</option>
+                <option value="scad">scad</option>
+                <option value="scala">scala</option>
+                <option value="scheme">scheme</option>
+                <option value="scss">scss</option>
+                <option value="sh">sh</option>
+                <option value="sjs">sjs</option>
+                <option value="smarty">smarty</option>
+                <option value="snippets">snippets</option>
+                <option value="soy_template">soy_template</option>
+                <option value="space">space</option>
+                <option value="sql">sql</option>
+                <option value="sqlserver">sqlserver</option>
+                <option value="stylus">stylus</option>
+                <option value="svg">svg</option>
+                <option value="swift">swift</option>
+                <option value="tcl">tcl</option>
+                <option value="tex">tex</option>
+                <option value="text">text</option>
+                <option value="textile">textile</option>
+                <option value="toml">toml</option>
+                <option value="tsx">tsx</option>
+                <option value="twing">twing</option>
+                <option value="typescript">typescript</option>
+                <option value="vala">vala</option>
+                <option value="vbscript">vbscript</option>
+                <option value="velocity">velocity</option>
+                <option value="verilog">verilog</option>
+                <option value="chdl">chdl</option>
+                <option value="wollok">wollok</option>
+                <option value="xml">xml</option>
+                <option value="xquery">xquery</option>
+                <option value="yaml">yaml</option>
+              </select>
+            </div>
+          </form>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+
+  <!-- Modal for file save -->
+  <div class="modal fade" id="modal_save" tabindex="-1" role="dialog" aria-labelledby="modal_save">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="modal_save">Save File</h4>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="inputFilename">Save As :</label>
+              <input type="text" class="form-control" id="js_modal_save_input_filename" placeholder="">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" id="js_modal_save_submit">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="editor" style="height: 90vh"></div>
+
+  <!-- ace -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.4/ace.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.4/ext-language_tools.js"></script>
+  <script>
+    var editor = ace.edit("editor");
+    editor.$blockScrolling = Infinity;
+    editor.setOptions({
+      enableBasicAutocompletion: true,
+      enableSnippets: true,
+      enableLiveAutocompletion: true
+    });
+    editor.setTheme("ace/theme/monokai");
+    editor.setFontSize(14);
+    editor.getSession().setMode("ace/mode/text");
+    editor.getSession().setUseWrapMode(true);
+    editor.getSession().setTabSize(2);
+  </script>
+  <!-- select2 and maximize-select2-height -->
+  <script type="text/javascript">
+    $('#js_select_mode').select2().maximizeSelect2Height();
+  </script>
+  <!-- main -->
+  <script src="js/main.js"></script>
+</body>
+</html>
