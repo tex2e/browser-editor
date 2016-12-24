@@ -231,3 +231,40 @@ $('#js_select_mode').change(function() {
   // update file name
   file.name = File.untitledFileTemplates[mode];
 });
+
+
+// make file drag-and-droppable so as to load text
+(function () {
+  var droppable = $("#droppable");
+
+  if (!window.FileReader) {
+    alert("File API is not supported in this browser!");
+    return false;
+  }
+
+  // Cancel the defualt process of dragenter and dragover event.
+  var cancelEvent = function (event) {
+    event.preventDefault();
+    event.stopPropagation();
+    return false;
+  }
+  droppable.bind("dragenter", cancelEvent);
+  droppable.bind("dragover",  cancelEvent);
+
+  // Set the event handler for dropped file.
+  droppable.bind("drop", function handleDroppedFile(event) {
+    var file = event.originalEvent.dataTransfer.files[0];
+
+    var fileReader = new FileReader();
+    fileReader.onload = function (event) {
+      // event.target.result
+      // $("#droppable").text("[" + file.name + "]" + event.target.result);
+      // editor.session.reset();
+      // editor.session.insert({ row: 0, column: 0 }, event.target.result);
+      editor.session.setValue(event.target.result);
+    }
+    fileReader.readAsText(file);
+
+    return cancelEvent(event);
+  });
+}())
